@@ -1,0 +1,24 @@
+class Solution {
+    public int minEatingSpeed(int[] piles, int h) {
+
+        // first find the biggest pile of banana, it determins the upper border of the time
+        int right = Arrays.stream(piles).max().getAsInt();
+        int left = 1;
+        int res = right;
+
+        while (left <= right){
+            int k = (left + right)/2;
+            long totalTime = 0;
+            for (int p : piles){
+                totalTime += Math.ceil((double) p/k);
+            }
+            if (totalTime <= h){
+                res = k;
+                right = k -1;
+            } else {
+                left = k + 1;
+            }
+        }
+        return res;
+    }
+}
